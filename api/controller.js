@@ -1,8 +1,11 @@
 'use strict'
+
+let model = require('./model')
+
 module.exports = {
   test (body) {
     return {
-      yourBody: body
+      yourBody: model.send(body)
     }
   }
 }
