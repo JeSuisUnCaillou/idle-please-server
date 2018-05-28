@@ -10,16 +10,22 @@ let mlabUrl = `mongodb://${mongoUser}:${mongoPassword}@${mongoDomain}:${mongoPor
 
 module.exports = {
   send (payload) {
-    MongoClient.connect(mlabUrl)
-    .then((client) => {
-      console.log('Asking mlab...')
-      const db = client.db(dbName)
-      const collection = db.collection('scores')
-      collection.insert(
-        payload,
-        function(err, result) {
-          console.log(`Inserted document into the collection`)
-          client.close()
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(mlabUrl)
+        .then((client) => {
+          console.log('Asking mlab...')
+          const db = client.db(dbName)
+          const collection = db.collection('scores')
+          collection.insert(
+            payload,
+            function(err, result) {
+              console.log(`Inserted document into the collection`)
+              resolve({ message: 'Document inserted', sent: payload })
+              client.close()
+            })
+        })
+        .catch((err) => {
+          reject(err)
         })
     })
   }

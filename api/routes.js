@@ -7,6 +7,13 @@ module.exports = (app) => {
     res.send('Please don\'t')
   })
   .post('/scores', (req, res) => {
-    res.send(controller.test(req.body))
+    controller.test(req.body)
+      .then((result) => {
+        res.send(result)
+      })
+      .catch((error) => {
+        res.status(400)
+        res.send({ error: error })
+      })
   })
 }
