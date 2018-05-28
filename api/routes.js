@@ -7,6 +7,6 @@ module.exports = (app) => {
     res.send('Please don\'t')
   })
   .post('/scores', (req, res) => {
-    res.send(controller.test())
+    res.send(controller.test(req.body))
   })
 }

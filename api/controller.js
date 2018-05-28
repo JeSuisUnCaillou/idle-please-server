@@ -1,6 +1,8 @@
 'use strict'
 module.exports = {
-  test () {
-    return 'i am testing'
+  test (body) {
+    return {
+      yourBody: body
+    }
   }
 }
